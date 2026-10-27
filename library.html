@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <!-- Configurações básicas da página -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Biblioteca — Museu de Habilidades</title>
+
+  <!-- Tipografia e estilos compartilhados -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg">
+  <!-- Cabeçalho e navegação principal -->
+  <header class="topbar small">
+    <div class="brand">
+      <div class="brand-mark">MH</div>
+
+      <div class="brand-text">
+        <h1>Biblioteca</h1>
+        <p class="subtitle">Recursos vinculáveis às suas habilidades</p>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="index.html" class="nav-link">← Hall</a>
+      <a href="review.html" class="nav-link">Revisão</a>
+    </nav>
+  </header>
+
+  <!-- Conteúdo principal da biblioteca -->
+  <main class="container">
+    <section class="detail-grid">
+
+      <!-- Formulário para cadastrar novos recursos -->
+      <aside class="panel">
+        <div class="panel-block">
+          <h2>Adicionar recurso</h2>
+
+          <form id="res-form" class="resource-form">
+            <label for="res-title">Título</label>
+            <input
+              type="text"
+              id="res-title"
+              placeholder="Ex.: Curso de redes"
+              maxlength="180"
+              required
+            >
+
+            <label for="res-type">Tipo de recurso</label>
+            <select id="res-type" required>
+              <option value="course">Curso</option>
+              <option value="book">Livro</option>
+              <option value="video">Vídeo</option>
+              <option value="article">Artigo</option>
+              <option value="other">Outro</option>
+            </select>
+
+            <label for="res-url">Link externo (opcional)</label>
+            <input
+              type="url"
+              id="res-url"
+              placeholder="https://exemplo.com"
+              maxlength="2048"
+            >
+
+            <label for="link-skill">Vincular a uma habilidade</label>
+            <select id="link-skill">
+              <option value="">Nenhuma habilidade</option>
+            </select>
+
+            <button class="btn" type="submit">
+              Adicionar recurso
+            </button>
+          </form>
+        </div>
+      </aside>
+
+      <!-- Lista de recursos já cadastrados -->
+      <section class="content" aria-labelledby="resources-heading">
+        <h2 id="resources-heading">Recursos cadastrados</h2>
+
+        <p class="muted">
+          Organize seus cursos, livros, vídeos e materiais de estudo.
+        </p>
+
+        <ul
+          id="resources-list"
+          class="timeline resources-list"
+          aria-live="polite"
+        ></ul>
+      </section>
+
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <small>© Museu de Habilidades — privado</small>
+  </footer>
+
+  <!-- Notificações da aplicação -->
+  <div id="toast-area" aria-live="polite"></div>
+
+  <!-- Lógica da página -->
+  <script type="module" src="./js/library-page.js"></script>
+</body>
+</html>

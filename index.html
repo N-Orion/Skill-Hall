@@ -1,0 +1,265 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <!-- 01. CONFIGURAÇÃO DO DOCUMENTO -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Museu de Habilidades — Hall</title>
+
+  <!-- 02. FONTES E ESTILOS -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg">
+
+  <!-- 03. CABEÇALHO E NAVEGAÇÃO -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">MH</div>
+
+      <div class="brand-text">
+        <h1>Museu de Habilidades</h1>
+        <p class="subtitle">
+          Laboratório pessoal — registros e exposições
+        </p>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="index.html" class="nav-link">Hall</a>
+      <a href="review.html" class="nav-link">Revisão</a>
+      <a href="library.html" class="nav-link">Biblioteca</a>
+
+      <a href="#" class="nav-link" id="open-sync">Sync (Gist)</a>
+      <a href="#" class="nav-link" id="backup-btn">Backup</a>
+
+      <label class="nav-link import-label" title="Restaurar backup">
+        Importar
+        <input type="file" id="import-file" accept=".json">
+      </label>
+
+      <a href="#" class="nav-link" id="open-settings">
+        Configurações
+      </a>
+    </nav>
+  </header>
+
+  <!-- 04. CONTEÚDO PRINCIPAL DO HALL -->
+  <main class="container">
+    <section class="intro">
+      <h2>O Hall</h2>
+      <p class="muted">
+        Cada cartão é uma peça — clique para acompanhar sua evolução.
+      </p>
+    </section>
+
+    <!-- 05. BUSCA E FILTRO -->
+    <div class="hall-controls">
+      <input
+        id="skill-search"
+        type="search"
+        placeholder="Buscar habilidade..."
+        aria-label="Buscar habilidade"
+      >
+
+      <select id="category-filter" aria-label="Filtrar por categoria">
+        <option value="Todos">Todas as categorias</option>
+      </select>
+    </div>
+
+    <!-- Os cartões são criados pelo JavaScript -->
+    <section
+      class="grid"
+      id="hall-grid"
+      aria-label="Habilidades registradas"
+    ></section>
+  </main>
+
+  <!-- 06. RODAPÉ -->
+  <footer class="footer">
+    <small>
+      Design: museu/laboratório minimalista • Privado
+    </small>
+  </footer>
+
+  <!-- 07. MODAL DE CRIAÇÃO E EDIÇÃO DE HABILIDADES -->
+  <div
+    class="modal"
+    id="skill-modal"
+    aria-hidden="true"
+    role="dialog"
+    aria-labelledby="modal-title"
+  >
+    <div class="modal-content">
+      <h3 id="modal-title">Nova Habilidade</h3>
+
+      <form id="skill-form">
+        <label for="skill-name-input">
+          Nome
+          <input type="text" id="skill-name-input" required>
+        </label>
+
+        <label for="skill-cat-input">
+          Categoria
+          <input
+            type="text"
+            id="skill-cat-input"
+            placeholder="Cybersecurity, Programação..."
+          >
+        </label>
+
+        <label for="skill-start-input">
+          Data de início
+          <input type="date" id="skill-start-input">
+        </label>
+
+        <label for="skill-goal-input">
+          Meta geral
+          <input
+            type="text"
+            id="skill-goal-input"
+            placeholder="Qual é o seu objetivo?"
+          >
+        </label>
+
+        <label for="skill-target-hours">
+          Horas-alvo para o progresso
+          <input
+            type="number"
+            id="skill-target-hours"
+            placeholder="Ex.: 40"
+            min="0"
+            step="0.5"
+          >
+        </label>
+
+        <div class="form-actions">
+          <button class="btn" type="submit">Salvar</button>
+          <button class="btn" id="cancel-skill" type="button">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 08. MODAL DE CONFIGURAÇÕES DE PROGRESSO -->
+  <div
+    class="modal"
+    id="settings-modal"
+    aria-hidden="true"
+    role="dialog"
+    aria-labelledby="settings-title"
+  >
+    <div class="modal-content">
+      <h3 id="settings-title">Configurações de progresso</h3>
+
+      <p class="muted">
+        Defina o peso dos objetivos concluídos e das horas estudadas.
+        Os valores serão normalizados pelo sistema.
+      </p>
+
+      <form id="settings-form">
+        <label for="weight-objectives">
+          Peso dos objetivos (%)
+          <input
+            type="number"
+            id="weight-objectives"
+            min="0"
+            max="100"
+            step="1"
+          >
+        </label>
+
+        <label for="weight-hours">
+          Peso das horas (%)
+          <input
+            type="number"
+            id="weight-hours"
+            min="0"
+            max="100"
+            step="1"
+          >
+        </label>
+
+        <div class="form-actions">
+          <button class="btn" type="submit">Salvar</button>
+          <button class="btn" id="cancel-settings" type="button">
+            Cancelar
+          </button>
+        </div>
+
+        <p class="muted small">
+          A soma dos pesos não precisa ser exatamente 100%.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- 09. MODAL DE SINCRONIZAÇÃO COM GITHUB GIST -->
+  <div
+    class="modal"
+    id="sync-modal"
+    aria-hidden="true"
+    role="dialog"
+    aria-labelledby="sync-title"
+  >
+    <div class="modal-content">
+      <h3 id="sync-title">Sincronização via GitHub Gist</h3>
+
+      <p class="muted">
+        Use esta função para salvar ou recuperar seus dados em um Gist
+        privado do GitHub. A operação só ocorre quando você a solicita.
+      </p>
+
+      <label for="gist-token">
+        Token do GitHub
+        <input
+          type="password"
+          id="gist-token"
+          placeholder="Cole seu token aqui"
+          autocomplete="off"
+        >
+      </label>
+
+      <label for="gist-id">
+        ID do Gist
+        <input
+          type="text"
+          id="gist-id"
+          placeholder="Deixe vazio para criar um novo"
+        >
+      </label>
+
+      <div class="form-actions">
+        <button class="btn" id="push-gist" type="button">
+          Salvar no Gist
+        </button>
+
+        <button class="btn" id="pull-gist" type="button">
+          Carregar do Gist
+        </button>
+
+        <button class="btn" id="cancel-sync" type="button">
+          Cancelar
+        </button>
+      </div>
+
+      <p class="muted small" id="sync-note" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <!-- 10. ÁREA DE NOTIFICAÇÕES -->
+  <div id="toast-area" aria-live="polite"></div>
+
+  <!-- 11. INICIALIZAÇÃO DO JAVASCRIPT -->
+  <script type="module" src="./js/hall.js"></script>
+
+</body>
+</html>

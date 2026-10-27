@@ -1,0 +1,279 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06080a">
+
+  <title>Habilidade — Museu de Habilidades</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg">
+  <!-- ======================================================
+       1. CABEÇALHO E NAVEGAÇÃO
+       ====================================================== -->
+  <header class="topbar small">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">MH</div>
+
+      <div class="brand-text">
+        <h1 id="skill-name">Habilidade</h1>
+        <p class="subtitle" id="skill-sub">Categoria • Início</p>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Navegação da habilidade">
+      <a href="index.html" class="nav-link">← Hall</a>
+      <a href="#" class="nav-link" id="open-edit">Editar</a>
+      <a href="review.html" class="nav-link">Revisar</a>
+      <a href="#" class="nav-link" id="export-anki">Exportar para Anki</a>
+      <a href="#" class="nav-link" id="open-settings-link">Configurações</a>
+    </nav>
+  </header>
+
+  <!-- ======================================================
+       2. CONTEÚDO PRINCIPAL
+       ====================================================== -->
+  <main class="container">
+    <section class="detail-grid">
+
+      <!-- 2.1 Painel lateral: resumo da habilidade -->
+      <aside class="panel" aria-label="Resumo da habilidade">
+
+        <section class="panel-block">
+          <h2>Progresso</h2>
+
+          <div class="big-progress">
+            <div
+              class="big-number"
+              id="big-progress"
+              aria-live="polite"
+            >0%</div>
+
+            <div class="muted" id="current-level">
+              Nível atual: —
+            </div>
+
+            <div class="muted small" id="progress-breakdown"></div>
+          </div>
+        </section>
+
+        <section class="panel-block">
+          <h2>Meta</h2>
+          <p id="skill-goal">(Nenhuma meta definida)</p>
+          <p class="muted small" id="target-hours-display"></p>
+        </section>
+
+        <section class="panel-block">
+          <h2>Resumo de horas</h2>
+
+          <p>
+            <strong id="total-hours">0</strong> horas totais
+            • Última sessão: <span id="last-date">—</span>
+          </p>
+
+          <a href="#session-form" class="btn small" id="open-session">
+            Registrar sessão
+          </a>
+        </section>
+      </aside>
+
+      <!-- 2.2 Área principal: histórico e ações -->
+      <section class="content">
+
+        <section class="snapshots">
+          <h2>Linha do tempo</h2>
+
+          <ul class="timeline" id="timeline-list">
+            <!-- Preenchido pelo JavaScript -->
+          </ul>
+        </section>
+
+        <section class="resources">
+          <h2>Objetivos</h2>
+
+          <ul id="objectives-list" class="timeline"></ul>
+
+          <form id="obj-form">
+            <label for="obj-text">Novo objetivo</label>
+
+            <div class="hall-controls">
+              <input
+                type="text"
+                id="obj-text"
+                placeholder="Ex.: estudar o modelo OSI"
+                maxlength="240"
+                required
+              >
+              <button class="btn" type="submit">Adicionar</button>
+            </div>
+          </form>
+
+          <h2>Recursos vinculados</h2>
+
+          <ul id="resources-list" class="timeline">
+            <!-- Cursos, livros, vídeos e artigos associados -->
+          </ul>
+
+          <h2 id="session-title">Registrar sessão de estudo</h2>
+
+          <form class="session-form" id="session-form">
+            <label for="sess-date">
+              Data
+              <input type="date" id="sess-date" required>
+            </label>
+
+            <label for="sess-duration">
+              Duração (horas)
+              <input
+                type="number"
+                id="sess-duration"
+                min="0.25"
+                max="24"
+                step="0.25"
+                required
+              >
+            </label>
+
+            <label for="sess-note">
+              Nota ou reflexão
+              <input
+                type="text"
+                id="sess-note"
+                maxlength="1000"
+                placeholder="O que aprendeu?"
+              >
+            </label>
+
+            <button class="btn" type="submit">Salvar sessão</button>
+          </form>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <!-- ======================================================
+       3. MODAL DE EDIÇÃO DA HABILIDADE
+       ====================================================== -->
+  <div
+    class="modal"
+    id="skill-edit-modal"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="edit-modal-title"
+  >
+    <div class="modal-content">
+      <h2 id="edit-modal-title">Editar habilidade</h2>
+
+      <form id="edit-form">
+        <label for="edit-name">
+          Nome
+          <input type="text" id="edit-name" maxlength="120" required>
+        </label>
+
+        <label for="edit-cat">
+          Categoria
+          <input type="text" id="edit-cat" maxlength="80">
+        </label>
+
+        <label for="edit-start">
+          Data de início
+          <input type="date" id="edit-start" required>
+        </label>
+
+        <label for="edit-goal">
+          Meta geral
+          <input type="text" id="edit-goal" maxlength="500">
+        </label>
+
+        <label for="edit-target-hours">
+          Meta de horas
+          <input
+            type="number"
+            id="edit-target-hours"
+            min="0"
+            max="100000"
+            step="0.5"
+          >
+        </label>
+
+        <div class="hall-controls">
+          <button class="btn" type="submit">Salvar alterações</button>
+          <button class="btn" id="cancel-edit" type="button">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       4. MODAL DE CONFIGURAÇÕES DO PROGRESSO
+       ====================================================== -->
+  <div
+    class="modal"
+    id="settings-modal"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="settings-modal-title"
+  >
+    <div class="modal-content">
+      <h2 id="settings-modal-title">Configurações do progresso</h2>
+
+      <p class="muted">
+        Defina a importância dos objetivos e das horas estudadas.
+        Os pesos serão normalizados durante o cálculo.
+      </p>
+
+      <form id="settings-form">
+        <label for="weight-objectives">
+          Peso dos objetivos (%)
+          <input
+            type="number"
+            id="weight-objectives"
+            min="0"
+            max="100"
+            step="1"
+            required
+          >
+        </label>
+
+        <label for="weight-hours">
+          Peso das horas (%)
+          <input
+            type="number"
+            id="weight-hours"
+            min="0"
+            max="100"
+            step="1"
+            required
+          >
+        </label>
+
+        <div class="hall-controls">
+          <button class="btn" type="submit">Salvar configurações</button>
+          <button class="btn" id="cancel-settings" type="button">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       5. MENSAGENS E JAVASCRIPT
+       ====================================================== -->
+  <div id="toast-area" aria-live="polite" aria-atomic="false"></div>
+
+  <script type="module" src="./js/skill-page.js"></script>
+</body>
+</html>

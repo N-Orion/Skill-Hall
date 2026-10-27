@@ -1,0 +1,159 @@
+```html
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revisão — Museu de Habilidades</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg">
+  <!-- Cabeçalho e navegação -->
+  <header class="topbar small">
+    <div class="brand">
+      <div class="brand-mark">MH</div>
+      <div class="brand-text">
+        <h1>Revisão</h1>
+        <p class="subtitle">Estude, teste sua memória e consolide conhecimentos</p>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="index.html" class="nav-link">← Hall</a>
+      <a href="library.html" class="nav-link">Biblioteca</a>
+      <a href="#" class="nav-link" id="export-anki">Exportar para Anki</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- Cadastro de cartões criados manualmente -->
+    <section class="panel" aria-labelledby="manual-card-heading">
+      <div class="panel-block">
+        <h2 id="manual-card-heading">Criar flashcard</h2>
+        <p class="muted">
+          Escreva sua própria pergunta e resposta. Os cartões ficam salvos
+          neste navegador.
+        </p>
+
+        <form id="manual-card-form" class="session-form">
+          <label for="manual-question">Pergunta</label>
+          <textarea
+            id="manual-question"
+            rows="3"
+            maxlength="2000"
+            placeholder="Ex.: Qual é a função do handshake TCP?"
+            required
+          ></textarea>
+
+          <label for="manual-answer">Resposta</label>
+          <textarea
+            id="manual-answer"
+            rows="4"
+            maxlength="5000"
+            placeholder="Explique o conceito com suas próprias palavras."
+            required
+          ></textarea>
+
+          <label for="manual-category">Categoria</label>
+          <input
+            id="manual-category"
+            type="text"
+            maxlength="80"
+            placeholder="Ex.: Redes de Computadores"
+            required
+          >
+
+          <button class="btn" type="submit">Salvar flashcard</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Revisão e filtro -->
+    <section class="review-panel">
+
+      <section class="review-card" id="card-root">
+        <p class="muted" id="card-category">Categoria</p>
+
+        <div class="card-front">
+          <h2 id="front">Carregando flashcards...</h2>
+        </div>
+
+        <div class="card-back" id="back">
+          <p id="answer-text"></p>
+        </div>
+
+        <div class="card-actions" id="question-actions">
+          <button class="btn" id="show-answer" type="button">
+            Mostrar resposta
+          </button>
+        </div>
+
+        <div class="card-actions" id="answer-actions">
+          <button class="btn" id="again" type="button">
+            Novamente
+          </button>
+
+          <button class="btn" id="good" type="button">
+            Bom
+          </button>
+
+          <button class="btn" id="easy" type="button">
+            Fácil
+          </button>
+        </div>
+
+        <p class="muted" id="review-status" aria-live="polite">
+          Preparando a revisão...
+        </p>
+      </section>
+
+      <aside class="panel">
+        <div class="panel-block">
+          <h2>Filtrar cartões</h2>
+
+          <label for="category-filter">Categoria</label>
+          <select id="category-filter">
+            <option value="Todos">Todas as categorias</option>
+          </select>
+
+          <button class="btn small" id="reset-session" type="button">
+            Reiniciar esta revisão
+          </button>
+        </div>
+
+        <div class="panel-block">
+          <h2>Exportação</h2>
+          <p class="muted">
+            Exporta os cartões da categoria selecionada, incluindo
+            cartões manuais, em formato TSV.
+          </p>
+
+          <button class="btn" id="download-tsv" type="button">
+            Baixar TSV
+          </button>
+        </div>
+      </aside>
+
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>
+      Os cartões manuais ficam salvos neste navegador.
+      O histórico de avaliações ainda não é permanente.
+    </small>
+  </footer>
+
+  <div id="toast-area" aria-live="polite"></div>
+
+  <script type="module" src="./js/review-page.js"></script>
+</body>
+</html>
+```
