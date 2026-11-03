@@ -1,0 +1,61 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06080a">
+  <title>Acesso — Skill Hall</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg">
+  <main class="container">
+    <section class="panel" style="max-width: 440px; margin: 10vh auto;">
+      <div class="panel-block">
+        <h1>Skill Hall</h1>
+        <p class="muted">Acesse seu laboratório de habilidades.</p>
+
+        <form id="auth-form">
+          <label for="auth-email">
+            E-mail
+            <input
+              id="auth-email"
+              type="email"
+              autocomplete="email"
+              required
+            >
+          </label>
+
+          <label for="auth-password">
+            Senha
+            <input
+              id="auth-password"
+              type="password"
+              autocomplete="current-password"
+              minlength="6"
+              required
+            >
+          </label>
+
+          <button class="btn" id="login-btn" type="submit">
+            Entrar
+          </button>
+
+          <button class="btn" id="signup-btn" type="button">
+            Criar conta
+          </button>
+
+          <button class="nav-link" id="reset-btn" type="button">
+            Esqueci minha senha
+          </button>
+
+          <p id="auth-message" class="muted" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/auth.js"></script>
+</body>
+</html>
