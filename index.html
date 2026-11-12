@@ -36,7 +36,6 @@
       <a href="review.html" class="nav-link">Revisão</a>
       <a href="library.html" class="nav-link">Biblioteca</a>
 
-      <a href="#" class="nav-link" id="open-sync">Sync (Gist)</a>
       <a href="#" class="nav-link" id="backup-btn">Backup</a>
 
       <label class="nav-link import-label" title="Restaurar backup">
@@ -205,65 +204,12 @@
     </div>
   </div>
 
-  <!-- 09. MODAL DE SINCRONIZAÇÃO COM GITHUB GIST -->
-  <div
-    class="modal"
-    id="sync-modal"
-    aria-hidden="true"
-    role="dialog"
-    aria-labelledby="sync-title"
-  >
-    <div class="modal-content">
-      <h3 id="sync-title">Sincronização via GitHub Gist</h3>
-
-      <p class="muted">
-        Use esta função para salvar ou recuperar seus dados em um Gist
-        privado do GitHub. A operação só ocorre quando você a solicita.
-      </p>
-
-      <label for="gist-token">
-        Token do GitHub
-        <input
-          type="password"
-          id="gist-token"
-          placeholder="Cole seu token aqui"
-          autocomplete="off"
-        >
-      </label>
-
-      <label for="gist-id">
-        ID do Gist
-        <input
-          type="text"
-          id="gist-id"
-          placeholder="Deixe vazio para criar um novo"
-        >
-      </label>
-
-      <div class="form-actions">
-        <button class="btn" id="push-gist" type="button">
-          Salvar no Gist
-        </button>
-
-        <button class="btn" id="pull-gist" type="button">
-          Carregar do Gist
-        </button>
-
-        <button class="btn" id="cancel-sync" type="button">
-          Cancelar
-        </button>
-      </div>
-
-      <p class="muted small" id="sync-note" aria-live="polite"></p>
-    </div>
-  </div>
 
   <!-- 10. ÁREA DE NOTIFICAÇÕES -->
   <div id="toast-area" aria-live="polite"></div>
 
   <!-- 11. INICIALIZAÇÃO DO JAVASCRIPT -->
-  <script type="module" src="./js/auth.js"></script>
+<script type="module" src="./js/auth.js"></script>
 <script type="module" src="./js/hall.js"></script>
-
 </body>
 </html>
