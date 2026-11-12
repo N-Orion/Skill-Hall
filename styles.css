@@ -1,44 +1,44 @@
-
 /* =========================================================
    SKILL HALL — DESIGN SYSTEM
-   Estética: preto, grafite, azul frio e prata
+   Identidade: preto profundo, grafite, azul frio e prata
+   Estrutura: base > layout > componentes > páginas > responsivo
    ========================================================= */
 
+/* 01. TOKENS */
 :root {
   color-scheme: dark;
 
-  /* 01. Paleta */
-  --bg: #080a0d;
-  --bg-soft: #0c1015;
-  --surface: #0e1319;
-  --surface-raised: #131a22;
-  --surface-hover: #1a222c;
+  --bg: #080b10;
+  --bg-elevated: #0c1118;
+  --surface: #101720;
+  --surface-raised: #151f2b;
+  --surface-hover: #1b2938;
 
-  --text: #e9edf2;
-  --text-secondary: #a8b2bf;
-  --muted: #788493;
+  --text: #e8edf4;
+  --text-secondary: #aab6c5;
+  --muted: #78889a;
 
   --accent: #79b8ff;
-  --accent-hover: #a6d0ff;
-  --accent-soft: rgba(121, 184, 255, 0.09);
+  --accent-hover: #a7d1ff;
+  --accent-strong: #4d9df0;
+  --accent-soft: rgba(121, 184, 255, .10);
 
-  --silver: #b9c2cc;
-  --silver-soft: rgba(185, 194, 204, 0.09);
+  --silver: #c0cad5;
+  --silver-soft: rgba(192, 202, 213, .08);
 
   --success: #8ac9aa;
   --warning: #e4c586;
   --danger: #e58b8b;
 
-  --border: #242b34;
-  --border-strong: #35404d;
+  --border: #253140;
+  --border-strong: #39495c;
 
-  /* 02. Geometria */
-  --radius-sm: 7px;
-  --radius: 11px;
-  --radius-lg: 15px;
-  --radius-xl: 19px;
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
 
-  /* 03. Espaçamento */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -47,38 +47,40 @@
   --space-6: 24px;
   --space-8: 32px;
 
-  /* 04. Tipografia e elevação */
-  --font: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  --font: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --content-width: 1200px;
+  --header-width: 1360px;
 
-  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.16);
-  --shadow-modal: 0 24px 70px rgba(0, 0, 0, 0.55);
-
-  --content-width: 1180px;
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, .18);
+  --shadow-panel: 0 14px 36px rgba(0, 0, 0, .22);
+  --shadow-modal: 0 24px 70px rgba(0, 0, 0, .58);
+  --focus-ring: 0 0 0 3px rgba(121, 184, 255, .18);
 }
 
-/* =========================================================
-   05. BASE
-   ========================================================= */
-
-* {
+/* 02. RESET E BASE */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
   min-height: 100%;
   scroll-behavior: smooth;
-  scrollbar-color: #35404d var(--bg);
+  scrollbar-color: var(--border-strong) var(--bg);
 }
 
 body {
+  min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse at 50% -20%, rgba(43, 86, 132, .13), transparent 48%),
+    var(--bg);
   color: var(--text);
   font-family: var(--font);
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -104,25 +106,31 @@ button {
 a {
   color: var(--accent);
   text-decoration: none;
-  transition: color 160ms ease;
+  transition: color .16s ease, background .16s ease, border-color .16s ease;
 }
 
 a:hover {
   color: var(--accent-hover);
 }
 
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
+img,
+svg {
+  max-width: 100%;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 ::selection {
   color: #fff;
-  background: rgba(121, 184, 255, 0.28);
+  background: rgba(121, 184, 255, .28);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  box-shadow: var(--focus-ring);
 }
 
 h1,
@@ -139,12 +147,17 @@ h2,
 h3,
 h4 {
   line-height: 1.28;
-  letter-spacing: -0.025em;
+  letter-spacing: -.025em;
+}
+
+h1 {
+  font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+  font-weight: 650;
 }
 
 h2 {
-  margin-bottom: var(--space-2);
-  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  margin-bottom: var(--space-3);
+  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
   font-weight: 650;
 }
 
@@ -155,31 +168,28 @@ h3 {
 }
 
 h4 {
-  margin-bottom: var(--space-3);
-  font-size: 0.95rem;
+  margin-bottom: var(--space-2);
+  font-size: .95rem;
   font-weight: 600;
 }
 
 small {
-  font-size: 0.8rem;
+  font-size: .8rem;
 }
 
-img,
-svg {
-  max-width: 100%;
+.muted {
+  color: var(--text-secondary);
+  font-size: .88rem;
 }
 
-[hidden] {
-  display: none !important;
+.small {
+  font-size: .82rem;
 }
 
-/* =========================================================
-   06. ESTRUTURA
-   ========================================================= */
-
+/* 03. LAYOUT GLOBAL */
 .container {
-  width: min(calc(100% - 40px), var(--content-width));
-  margin: 32px auto 48px;
+  width: min(calc(100% - 48px), var(--content-width));
+  margin: 34px auto 52px;
 }
 
 .intro {
@@ -191,23 +201,27 @@ svg {
 }
 
 .intro p {
-  max-width: 680px;
+  max-width: 700px;
   margin-bottom: 0;
 }
 
-.muted {
-  color: var(--text-secondary);
-  font-size: 0.88rem;
+.content {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 22px;
 }
 
-.small {
-  font-size: 0.82rem;
+.footer {
+  width: min(calc(100% - 48px), var(--content-width));
+  margin: 40px auto 24px;
+  padding-top: 17px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: .78rem;
 }
 
-/* =========================================================
-   07. CABEÇALHO E NAVEGAÇÃO
-   ========================================================= */
-
+/* 04. CABEÇALHO E NAVEGAÇÃO */
 .topbar {
   position: relative;
   z-index: 5;
@@ -215,14 +229,17 @@ svg {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  min-height: 76px;
-  padding: 14px max(24px, calc((100vw - 1320px) / 2));
+  width: 100%;
+  min-height: 78px;
+  padding: 14px max(24px, calc((100vw - var(--header-width)) / 2));
   border-bottom: 1px solid var(--border);
-  background: #090c10;
+  background: rgba(9, 14, 21, .94);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+  backdrop-filter: blur(14px);
 }
 
 .topbar.small {
-  min-height: 68px;
+  min-height: 70px;
 }
 
 .brand {
@@ -240,11 +257,12 @@ svg {
   place-items: center;
   border: 1px solid var(--border-strong);
   border-radius: 11px;
-  background: var(--surface-raised);
+  background: linear-gradient(145deg, #17283b, #101720);
   color: var(--silver);
-  font-size: 0.9rem;
+  font-size: .9rem;
   font-weight: 750;
-  letter-spacing: 0.04em;
+  letter-spacing: .04em;
+  box-shadow: inset 0 1px rgba(255, 255, 255, .04);
 }
 
 .brand-text {
@@ -260,14 +278,14 @@ svg {
 .brand-text .subtitle {
   margin: 3px 0 0;
   color: var(--muted);
-  font-size: 0.75rem;
+  font-size: .75rem;
 }
 
 .nav {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 7px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
@@ -279,27 +297,34 @@ svg {
   padding: 7px 11px;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
+  background: transparent;
   color: var(--text-secondary);
-  font-size: 0.82rem;
+  font-family: inherit;
+  font-size: .82rem;
   font-weight: 500;
+  line-height: 1.3;
+  text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
+  appearance: none;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link[aria-current="page"] {
   border-color: var(--border);
   background: var(--surface);
   color: var(--text);
+}
+
+.import-label {
+  cursor: pointer;
 }
 
 .import-label input[type="file"] {
   display: none;
 }
 
-/* =========================================================
-   08. BOTÕES
-   ========================================================= */
-
+/* 05. BOTÕES */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -310,45 +335,43 @@ svg {
   border: 1px solid var(--accent);
   border-radius: var(--radius-sm);
   background: var(--accent);
-  color: #09111c;
-  font-size: 0.84rem;
+  color: #081321;
+  font-size: .84rem;
   font-weight: 650;
   line-height: 1.3;
   text-align: center;
+  text-decoration: none;
   cursor: pointer;
-  transition:
-    background 160ms ease,
-    border-color 160ms ease,
-    color 160ms ease,
-    transform 160ms ease;
+  appearance: none;
+  transition: background .16s ease, border-color .16s ease, color .16s ease, transform .16s ease;
 }
 
 .btn:hover {
   border-color: var(--accent-hover);
   background: var(--accent-hover);
-  color: #09111c;
+  color: #081321;
 }
 
 .btn:active {
   transform: translateY(1px);
 }
 
-.btn:disabled {
-  opacity: 0.45;
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: .45;
   cursor: not-allowed;
 }
 
 .btn.small {
   min-height: 32px;
   padding: 6px 10px;
-  font-size: 0.78rem;
+  font-size: .78rem;
 }
 
-/* Botões secundários: acabamento prateado */
 .btn-secondary,
 .btn.secondary,
 button.secondary {
-  border-color: #596574;
+  border-color: var(--border-strong);
   background: transparent;
   color: var(--silver);
 }
@@ -358,20 +381,24 @@ button.secondary {
 button.secondary:hover {
   border-color: var(--silver);
   background: var(--silver-soft);
-  color: #f0f3f6;
+  color: var(--text);
 }
 
 .btn-danger,
 .btn.danger {
-  border-color: rgba(229, 139, 139, 0.35);
-  background: rgba(229, 139, 139, 0.08);
+  border-color: rgba(229, 139, 139, .38);
+  background: rgba(229, 139, 139, .08);
   color: var(--danger);
 }
 
-/* =========================================================
-   09. CAMPOS E FORMULÁRIOS
-   ========================================================= */
+.btn-danger:hover,
+.btn.danger:hover {
+  border-color: var(--danger);
+  background: rgba(229, 139, 139, .16);
+  color: #ffc1c1;
+}
 
+/* 06. CAMPOS E FORMULÁRIOS */
 input,
 select,
 textarea {
@@ -382,31 +409,30 @@ textarea {
   padding: 10px 12px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
-  background: #090d12;
+  background: #090f16;
   color: var(--text);
-  transition:
-    border-color 160ms ease,
-    background 160ms ease;
+  transition: border-color .16s ease, background .16s ease, box-shadow .16s ease;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: #6f7c8d;
+  color: #718095;
   opacity: 1;
 }
 
 input:hover,
 select:hover,
 textarea:hover {
-  border-color: #4b5868;
+  border-color: #52647a;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--accent);
-  background: #0c1118;
+  background: #0d1520;
   outline: none;
+  box-shadow: var(--focus-ring);
 }
 
 input[type="checkbox"],
@@ -437,7 +463,7 @@ select option {
 
 label {
   color: var(--text-secondary);
-  font-size: 0.83rem;
+  font-size: .83rem;
   font-weight: 500;
 }
 
@@ -451,10 +477,36 @@ form {
   min-width: 0;
 }
 
-/* =========================================================
-   10. HALL: BUSCA E FILTROS
-   ========================================================= */
+/* 07. PAINÉIS E SUPERFÍCIES */
+.panel,
+.resources,
+.review-card,
+.card {
+  min-width: 0;
+}
 
+.panel {
+  padding: 21px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(155deg, rgba(21, 31, 43, .96), rgba(14, 21, 30, .98));
+  box-shadow: var(--shadow-soft);
+}
+
+.panel-block {
+  margin-bottom: 24px;
+}
+
+.panel-block:last-child {
+  margin-bottom: 0;
+}
+
+.panel-block + .panel-block {
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* 08. HALL — BUSCA, FILTROS E CARTÕES */
 .hall-controls {
   display: flex;
   align-items: center;
@@ -465,7 +517,7 @@ form {
 
 .hall-controls input {
   flex: 1 1 260px;
-  max-width: 420px;
+  max-width: 440px;
 }
 
 .hall-controls select {
@@ -477,15 +529,11 @@ form {
   min-height: 44px;
 }
 
-/* =========================================================
-   11. CARTÕES DE HABILIDADES
-   ========================================================= */
-
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 265px), 1fr));
   align-items: stretch;
-  gap: 16px;
+  gap: 17px;
   margin-top: 18px;
 }
 
@@ -497,15 +545,16 @@ form {
   padding: 19px;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  background: var(--surface);
-  box-shadow: var(--shadow-card);
+  background: linear-gradient(155deg, #121b26, #0e151e);
+  box-shadow: var(--shadow-soft);
   overflow-wrap: anywhere;
-  transition: border-color 160ms ease, background 160ms ease;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
 }
 
 .card:hover {
-  border-color: #465363;
-  background: #111720;
+  transform: translateY(-2px);
+  border-color: #49617b;
+  background: linear-gradient(155deg, #172333, #101923);
 }
 
 .card-head {
@@ -521,11 +570,11 @@ form {
   align-self: flex-start;
   max-width: 100%;
   padding: 4px 8px;
-  border: 1px solid #3d4a59;
-  border-radius: 6px;
+  border: 1px solid #40536a;
+  border-radius: var(--radius-xs);
   background: var(--silver-soft);
   color: var(--silver);
-  font-size: 0.72rem;
+  font-size: .72rem;
   font-weight: 600;
   overflow-wrap: anywhere;
 }
@@ -541,7 +590,7 @@ form {
 .card-sub {
   margin: 0;
   color: var(--text-secondary);
-  font-size: 0.82rem;
+  font-size: .82rem;
 }
 
 .card-meta {
@@ -553,7 +602,7 @@ form {
   padding-top: 10px;
   border-top: 1px solid var(--border);
   color: var(--muted);
-  font-size: 0.74rem;
+  font-size: .74rem;
 }
 
 .card-action {
@@ -564,12 +613,8 @@ form {
   margin-top: auto;
   padding-top: 6px;
   color: var(--accent);
-  font-size: 0.83rem;
+  font-size: .83rem;
   font-weight: 600;
-}
-
-.card-action:hover {
-  color: var(--accent-hover);
 }
 
 .card.empty,
@@ -577,7 +622,7 @@ form {
   padding: 30px 20px;
   border: 1px dashed var(--border-strong);
   border-radius: var(--radius-lg);
-  background: transparent;
+  background: rgba(12, 17, 24, .45);
   color: var(--text-secondary);
   text-align: center;
   box-shadow: none;
@@ -601,10 +646,41 @@ form {
   margin-bottom: 0;
 }
 
-/* =========================================================
-   12. INDICADORES CIRCULARES
-   ========================================================= */
+.card-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
 
+.card-actions .card-action {
+  margin: 0 auto 0 0;
+  padding: 6px 0;
+}
+
+.card-actions .btn {
+  min-width: 82px;
+}
+
+.card-actions .delete-skill,
+.card-actions .btn-danger {
+  border-color: rgba(229, 139, 139, .38);
+  background: rgba(229, 139, 139, .08);
+  color: var(--danger);
+}
+
+.card-actions .delete-skill:hover,
+.card-actions .btn-danger:hover {
+  border-color: var(--danger);
+  background: rgba(229, 139, 139, .16);
+  color: #ffc1c1;
+}
+
+/* 09. INDICADORES DE PROGRESSO */
 .progress-ring {
   display: grid;
   flex: 0 0 56px;
@@ -627,7 +703,7 @@ form {
 }
 
 .ring-bg {
-  stroke: #2b333d;
+  stroke: #2b3949;
 }
 
 .ring-fg {
@@ -635,7 +711,7 @@ form {
   stroke-linecap: round;
   transform: rotate(-90deg);
   transform-origin: center;
-  transition: stroke-dashoffset 500ms ease;
+  transition: stroke-dashoffset .5s ease;
 }
 
 .ring-text {
@@ -645,33 +721,13 @@ form {
   text-anchor: middle;
 }
 
-/* =========================================================
-   13. PÁGINA DA HABILIDADE
-   ========================================================= */
-
+/* 10. PÁGINA INDIVIDUAL DA HABILIDADE */
 .detail-grid {
   display: grid;
-  grid-template-columns: minmax(245px, 320px) minmax(0, 1fr);
+  grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
   align-items: start;
   gap: 22px;
   margin-top: 24px;
-}
-
-.panel {
-  min-width: 0;
-  padding: 20px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  box-shadow: var(--shadow-card);
-}
-
-.panel-block {
-  margin-bottom: 23px;
-}
-
-.panel-block:last-child {
-  margin-bottom: 0;
 }
 
 .big-progress {
@@ -683,9 +739,9 @@ form {
 
 .big-number {
   color: var(--accent);
-  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-size: clamp(2.2rem, 5vw, 2.8rem);
   font-weight: 750;
-  letter-spacing: -0.06em;
+  letter-spacing: -.06em;
   line-height: 1.15;
   font-variant-numeric: tabular-nums;
 }
@@ -701,33 +757,25 @@ form {
   font-variant-numeric: tabular-nums;
 }
 
-.content {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 20px;
-}
-
 .snapshots,
 .resources {
   min-width: 0;
 }
 
 .resources {
-  padding: 20px;
+  padding: 21px;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  background: var(--surface);
+  background: linear-gradient(155deg, rgba(18, 27, 38, .96), rgba(13, 19, 27, .98));
+  box-shadow: var(--shadow-soft);
 }
 
+.resources > h2:not(:first-child),
 .resources > h3:not(:first-child) {
   margin-top: 28px;
 }
 
-/* =========================================================
-   14. LINHA DO TEMPO
-   ========================================================= */
-
+/* 11. LINHA DO TEMPO */
 .timeline {
   display: flex;
   flex-direction: column;
@@ -739,10 +787,11 @@ form {
 
 .timeline li {
   position: relative;
+  min-width: 0;
   padding: 15px 16px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #0b0f14;
+  background: #0b121a;
   overflow-wrap: anywhere;
 }
 
@@ -754,7 +803,7 @@ form {
   display: block;
   margin-bottom: 5px;
   color: var(--muted);
-  font-size: 0.75rem;
+  font-size: .75rem;
 }
 
 .evidences {
@@ -770,13 +819,10 @@ form {
   border-radius: 7px;
   background: var(--surface-raised);
   color: var(--silver);
-  font-size: 0.75rem;
+  font-size: .75rem;
 }
 
-/* =========================================================
-   15. OBJETIVOS
-   ========================================================= */
-
+/* 12. OBJETIVOS */
 #objectives-list {
   display: flex;
   flex-direction: column;
@@ -798,12 +844,12 @@ form {
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: #0b0f14;
+  background: #0b121a;
   overflow-wrap: anywhere;
 }
 
 .objective-item.dragging {
-  opacity: 0.6;
+  opacity: .6;
 }
 
 .objective-item input[type="checkbox"] {
@@ -826,36 +872,95 @@ form {
   min-width: 0;
 }
 
-/* =========================================================
-   16. RECURSOS
-   ========================================================= */
-
-#resources-list {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
+/* 13. RECURSOS VINCULADOS E BIBLIOTECA */
+#resources-list,
+#library-list,
+#resource-list,
+.resources-list,
+.resource-list {
+  display: grid;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-#resources-list li {
+#resources-list > li,
+#library-list > li,
+#resource-list > li,
+.resources-list > li,
+.resource-list > li {
   min-width: 0;
-  padding: 13px;
+  padding: 15px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #0b0f14;
+  background: #0b121a;
   overflow-wrap: anywhere;
 }
 
-#resources-list a {
+#resources-list a,
+.resources-list a,
+.resource-list a {
   overflow-wrap: anywhere;
 }
 
-/* =========================================================
-   17. SESSÕES DE ESTUDO
-   ========================================================= */
+/* Formulário real da Biblioteca: class="resource-form" */
+.resource-form {
+  display: grid;
+  gap: 13px;
+}
 
+.resource-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.resource-form button {
+  justify-self: start;
+  margin-top: 4px;
+}
+
+/* Compatibilidade com nomes antigos, caso ainda existam em outras telas */
+#resource-form,
+#library-form {
+  display: grid;
+  gap: 14px;
+}
+
+#resource-form label,
+#library-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#resource-form button,
+#library-form button {
+  justify-self: start;
+}
+
+/* Biblioteca: formulário e lista */
+.library-layout,
+.detail-grid.library-layout {
+  display: grid;
+  grid-template-columns: minmax(270px, 350px) minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+}
+
+.resources-list:empty::before,
+#resources-list:empty::before {
+  content: "Nenhum recurso cadastrado ainda.";
+  display: block;
+  padding: 22px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius);
+  color: var(--muted);
+  text-align: center;
+}
+
+/* 14. SESSÕES DE ESTUDO */
 .session-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -878,11 +983,7 @@ form {
   justify-self: start;
 }
 
-/* =========================================================
-   18. REVISÃO E FLASHCARDS
-   ========================================================= */
-
-/* Layout principal: revisão à esquerda, ferramentas à direita */
+/* 15. REVISÃO E FLASHCARDS */
 .review-panel {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(260px, 310px);
@@ -891,18 +992,17 @@ form {
   margin-top: 24px;
 }
 
-/* Cartão de revisão */
 .review-card {
   display: flex;
   min-width: 0;
-  min-height: 250px;
+  min-height: 270px;
   flex-direction: column;
   gap: 18px;
   padding: clamp(20px, 3vw, 30px);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-lg);
-  background: #0a0e13;
-  box-shadow: var(--shadow-card);
+  background: linear-gradient(145deg, #111c29, #0b121a);
+  box-shadow: var(--shadow-panel);
   overflow-wrap: anywhere;
 }
 
@@ -911,6 +1011,7 @@ form {
   min-width: 0;
 }
 
+.card-front h2,
 .card-front h3 {
   margin: 0;
   font-size: clamp(1.2rem, 2.5vw, 1.55rem);
@@ -920,16 +1021,6 @@ form {
 .card-back p {
   color: var(--text-secondary);
   line-height: 1.8;
-}
-
-/* Área de ações: separação explícita entre botões */
-.card-actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: auto;
-  padding-top: 6px;
 }
 
 .card-actions > button {
@@ -951,12 +1042,18 @@ form {
   min-width: 0;
 }
 
-/* Formulário de criação de cartões */
+#review-status {
+  margin-bottom: 0;
+  color: var(--text-secondary);
+  font-size: .82rem;
+}
+
+/* Formulário de flashcards: compatível com HTML atual */
 #manual-card-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  gap: 16px 20px;
+  gap: 15px 18px;
 }
 
 #manual-card-form label {
@@ -970,13 +1067,6 @@ form {
   min-height: 112px;
 }
 
-#manual-card-form button {
-  justify-self: end;
-  align-self: end;
-  min-width: 145px;
-}
-
-/* Categoria ocupa a primeira coluna; botão fica na segunda */
 #manual-card-form label:nth-of-type(3) {
   grid-column: 1;
 }
@@ -984,9 +1074,12 @@ form {
 #manual-card-form button {
   grid-column: 2;
   grid-row: 3;
+  justify-self: end;
+  align-self: end;
+  min-width: 150px;
 }
 
-/* Coluna de ferramentas da revisão */
+/* Ferramentas laterais: compatível com aside.panel atual */
 .review-sidebar {
   display: flex;
   min-width: 0;
@@ -1004,58 +1097,40 @@ form {
   max-width: 100%;
 }
 
-#review-status {
-  color: var(--text-secondary);
-  font-size: 0.82rem;
+/* No HTML atual, o formulário está antes de .review-panel.
+   Ele recebe espaçamento próprio até a reorganização do markup. */
+#manual-card-form {
+  width: 100%;
 }
 
-/* =========================================================
-   19. BIBLIOTECA
-   ========================================================= */
-
-#resource-form,
-#library-form {
-  display: grid;
-  gap: 14px;
-}
-
-#resource-form label,
-#library-form label {
+/* 16. AÇÕES DE FORMULÁRIOS E MODAIS */
+.form-actions {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px;
 }
 
-#resource-form button,
-#library-form button {
-  justify-self: start;
+.form-actions .btn {
+  min-width: 110px;
 }
 
-#library-list,
-#resource-list,
-.resource-list {
-  display: grid;
-  gap: 12px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.form-actions button:not([type="submit"]) {
+  border-color: var(--border-strong);
+  background: transparent;
+  color: var(--silver);
 }
 
-#library-list > li,
-#resource-list > li,
-.resource-list > li {
-  min-width: 0;
-  padding: 16px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: #0b0f14;
-  overflow-wrap: anywhere;
+.form-actions button:not([type="submit"]):hover {
+  border-color: var(--silver);
+  background: var(--silver-soft);
+  color: var(--text);
 }
 
-/* =========================================================
-   20. MODAIS
-   ========================================================= */
-
+/* 17. MODAIS */
 .modal {
   position: fixed;
   z-index: 50;
@@ -1065,8 +1140,8 @@ form {
   justify-content: center;
   padding: 20px;
   overflow-y: auto;
-  background: rgba(0, 0, 0, 0.78);
-  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, .78);
+  backdrop-filter: blur(6px);
 }
 
 .modal[aria-hidden="false"] {
@@ -1074,19 +1149,20 @@ form {
 }
 
 .modal-content {
-  width: min(100%, 540px);
-  max-height: min(88vh, 850px);
-  padding: clamp(20px, 4vw, 28px);
+  width: min(100%, 560px);
+  max-height: min(88vh, 860px);
+  padding: clamp(20px, 4vw, 30px);
   overflow-y: auto;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xl);
-  background: #10151c;
+  background: linear-gradient(155deg, #151f2b, #0e151e);
   box-shadow: var(--shadow-modal);
-  animation: modal-enter 160ms ease-out;
+  animation: modal-enter .16s ease-out;
 }
 
+.modal-content h2,
 .modal-content h3 {
-  margin-bottom: 8px;
+  margin-bottom: 9px;
   font-size: 1.2rem;
 }
 
@@ -1112,17 +1188,13 @@ form {
     opacity: 0;
     transform: translateY(7px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* =========================================================
-   21. NOTIFICAÇÕES
-   ========================================================= */
-
+/* 18. NOTIFICAÇÕES */
 #toast-area {
   position: fixed;
   z-index: 100;
@@ -1139,12 +1211,12 @@ form {
   padding: 12px 15px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
-  background: #151b23;
+  background: #151f2b;
   color: var(--text);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-soft);
   opacity: 0;
   transform: translateY(-7px);
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition: opacity .18s ease, transform .18s ease;
   overflow-wrap: anywhere;
 }
 
@@ -1153,10 +1225,7 @@ form {
   transform: translateY(0);
 }
 
-/* =========================================================
-   22. ESTADOS
-   ========================================================= */
-
+/* 19. ESTADOS E UTILITÁRIOS */
 .success,
 .status-success {
   color: var(--success);
@@ -1179,29 +1248,20 @@ hr,
   background: var(--border);
 }
 
-/* =========================================================
-   23. RODAPÉ
-   ========================================================= */
-
-.footer {
-  width: min(calc(100% - 40px), var(--content-width));
-  margin: 36px auto 24px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 0.78rem;
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
 }
 
-/* =========================================================
-   24. TABLETS
-   ========================================================= */
-
+/* 20. TABLETS */
 @media (max-width: 1000px) {
   .topbar {
     align-items: flex-start;
     flex-direction: column;
     gap: 14px;
-    padding: 16px 22px;
+    padding: 16px 24px;
   }
 
   .nav {
@@ -1209,7 +1269,8 @@ hr,
     width: 100%;
   }
 
-  .detail-grid {
+  .detail-grid,
+  .library-layout {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -1224,10 +1285,7 @@ hr,
   }
 }
 
-/* =========================================================
-   25. CELULARES
-   ========================================================= */
-
+/* 21. CELULARES */
 @media (max-width: 600px) {
   body {
     font-size: 13px;
@@ -1253,15 +1311,15 @@ hr,
     flex-basis: 38px;
     width: 38px;
     height: 38px;
-    font-size: 0.8rem;
+    font-size: .8rem;
   }
 
   .brand-text h1 {
-    font-size: 0.95rem;
+    font-size: .95rem;
   }
 
   .brand-text .subtitle {
-    font-size: 0.7rem;
+    font-size: .7rem;
   }
 
   .nav {
@@ -1272,7 +1330,7 @@ hr,
   .nav-link {
     min-height: 34px;
     padding: 6px 8px;
-    font-size: 0.75rem;
+    font-size: .75rem;
   }
 
   .intro {
@@ -1300,6 +1358,21 @@ hr,
     padding: 16px;
   }
 
+  .card-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .card-actions .card-action {
+    grid-column: 1 / -1;
+  }
+
+  .card-actions .btn {
+    width: 100%;
+    min-width: 0;
+  }
+
   .detail-grid {
     gap: 14px;
     margin-top: 16px;
@@ -1307,11 +1380,11 @@ hr,
 
   .panel,
   .resources {
-    padding: 15px;
+    padding: 16px;
   }
 
   .content {
-    gap: 14px;
+    gap: 15px;
   }
 
   #obj-form {
@@ -1364,12 +1437,21 @@ hr,
 
   .card-actions > button,
   #answer-actions button {
-    flex: 1 1 100%;
     width: 100%;
   }
 
   .review-sidebar {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .form-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    min-width: 0;
   }
 
   .modal {
@@ -1395,18 +1477,14 @@ hr,
   }
 }
 
-/* =========================================================
-   26. ACESSIBILIDADE
-   ========================================================= */
-
+/* 22. ACESSIBILIDADE */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
+    animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: .01ms !important;
   }
 }
-
